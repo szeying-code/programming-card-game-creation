@@ -138,17 +138,21 @@ class GameInterfaceUI:
 
   # Unified function to check whether the game is over
   def check_game_over(self, result=None):
+    winner = None
     if result and result.get("winner"): # If result contains a winner name, handle this first
       winner = result["winner"]
-      self.show_winner_message(winner)
-      return True
-
-    if self.engine.winner:# Otherwise check engine's internal winner attribute
+    elif self.engine.winner:# Otherwise check engine's internal winner attribute
       winner = self.engine.winner
-      self.show_winner_message(winner)
-      return True
 
-    return False
+    if winner is None:
+      return False
+
+    self.show_winner_message(winner)
+    # The game is over: stop any pending NPC turns and show the winner screen
+    self.engine.ai_wait_until = None
+    self.engine._pending_ai_phase = False
+    self.show_winner_popup(winner)
+    return True
 
   # Activate victory popup (Only trigger once)
   def show_winner_popup(self, winner_name):
@@ -1093,11 +1097,24 @@ class GameInterfaceUI:
     for btn in self.player_buttons:
       btn.draw(s)
 
+    # Winner screen (only drawn when someone has won)
+    self.draw_winner_popup()
+
     pygame.display.flip()
 
   # ---------- event entry----------#
 
   def handle_event(self, event):
+    # Winner screen: a click anywhere starts a new game
+    if self.winner_popup_active:
+      if event.type == pygame.MOUSEBUTTONDOWN:
+        self.winner_popup_active = False
+        self.winner_name = None
+        self.engine.reset_game()
+        self._notify({"message": "New game started."})
+        self.update_card_widgets()
+      return
+
     # Disable actions while NPC is thinking
     if getattr(self.engine, "_pending_ai_phase", False):
       return
