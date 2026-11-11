@@ -2,7 +2,7 @@
 
 A desktop card game written in Python with pygame. You play against one or two computer players, with an easy and a hard difficulty. It was built as a group project for COMP4008 Programming (University of Nottingham, 2025-26).
 
-**My part:** I wrote the game engine (`notty/element_action/game.py`), which runs the whole game: turn order, action rules, group checks, win detection and the AI turns. I also built the winner screen: a darkened, blurred background with an animated message and sound, where a click starts a new game.
+**My part:** I wrote the game engine (`notty/element_action/game.py`), which runs the whole game: turn order, action rules, group checks, win detection and the AI turns. I also built the winner screen: the screen darkens, an animated "YOU WIN!" message and the winner's picture appear with a sound, and a click starts a new game.
 
 ## The game
 
@@ -42,9 +42,7 @@ The game opens a 1920 x 1080 window.
 ```
 python simulate_games.py        # 100 games for each setting
 python simulate_games.py 500    # choose how many
-
 ```
-"unfinished" means nobody won within 400 turns. The easy AI plays loosely, so many of its games never finish. The hard AI wins about a third of games within that limit.
 
 In my runs of 100 games for each setting (easy and hard AI, one and two opponents) there were no engine errors.
 
