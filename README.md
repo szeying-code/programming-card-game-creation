@@ -42,8 +42,9 @@ The game opens a 1920 x 1080 window.
 ```
 python simulate_games.py        # 100 games for each setting
 python simulate_games.py 500    # choose how many
-"unfinished" means nobody won within 400 turns. The easy AI plays loosely, so many of its games never finish. The hard AI wins about a third of games within that limit.
+
 ```
+"unfinished" means nobody won within 400 turns. The easy AI plays loosely, so many of its games never finish. The hard AI wins about a third of games within that limit.
 
 In my runs of 100 games for each setting (easy and hard AI, one and two opponents) there were no engine errors.
 
