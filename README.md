@@ -1,56 +1,112 @@
-# Notty: a card game with AI opponents
+# Notty: A Python Card Game with AI Opponents 🃏
 
-A desktop card game written in Python with pygame. You play against one or two computer players, with an easy and a hard difficulty. It was built as a group project for COMP4008 Programming (University of Nottingham, 2025-26).
+A desktop card game developed in Python using Pygame. Players compete against one or two computer-controlled opponents, with Easy and Hard AI difficulty levels.
 
-**My part:** I wrote the game engine (`notty/element_action/game.py`), which runs the whole game: turn order, action rules, group checks, win detection and the AI turns. I also built the winner screen: the screen darkens, an animated "YOU WIN!" message and the winner's picture appear with a sound, and a click starts a new game.
+This project was developed as a group coursework project for **COMP4008 Programming (University of Nottingham, 2025–26)**.
 
-## The game
+### My Individual Contribution
 
-- 90 cards: five colours (red, green, yellow, black, blue), numbered 1 to 9, two of each. Two or three players, four cards each, all face up.
-- On your turn you can, in any order:
-  1. draw up to 3 cards (once per turn),
-  2. steal a random card from another player (once per turn),
-  3. draw one card and then discard one (once per turn),
-  4. discard a valid group as many times as you like: a run of at least three cards of one colour with consecutive numbers, or a set of at least four cards with the same number and different colours.
-- A hand can never hold more than 20 cards. Discarded cards go back into the deck, which is reshuffled.
-- The first player with no cards left wins.
+My main contribution was developing the **game engine** (`notty/element_action/game.py`), which controls the core gameplay logic, including:
 
-## How it is built
+- Managing player turn order and game flow.
+- Implementing card drawing, stealing and discarding rules.
+- Validating card groups (runs and sets).
+- Checking winning conditions.
+- Managing AI turns and game actions.
 
-| Part | File | What it does |
+I also developed the **winner screen**, including the darkened background, animated "YOU WIN!" message, winner image and sound effect. Players can click to start a new game.
+
+### 🎮 The Game
+
+- 90 cards across five colours: red, green, yellow, black and blue.
+- Numbers range from 1 to 9, with two copies of each card.
+- Supports two or three players, with four cards dealt to each player.
+- Play against Easy or Hard AI opponents.
+
+On each turn, players can:
+1. Draw up to three cards (once per turn).
+2. Steal a random card from another player (once per turn).
+3. Draw one card and discard one card (once per turn).
+4. Discard valid groups as many times as possible:
+   - **Runs:** At least three consecutive numbers of the same colour.
+   - **Sets:** At least four cards with the same number but different colours.
+
+A hand can contain a maximum of 20 cards. Discarded cards return to the deck, which is reshuffled.
+
+The first player to discard all their cards wins.
+
+### 🛠️ How It Is Built
+
+| Component | File | Description |
 |---|---|---|
-| Cards and deck | `notty/element_action/card.py` | `Card` and `Deck` (create, shuffle, draw) |
-| Players | `notty/element_action/player.py` | `Player`, plus `AIPlayer` (hard) and `EasyAIPlayer` (easy) that score cards, find runs and sets, and choose whether to draw, steal or discard |
-| Game engine | `notty/element_action/game.py` | `GameEngine`: deals cards, enforces the rules with turn flags, validates groups, checks for a win, runs the AI turns |
-| Interface | `notty/ui/` | pygame screens, buttons, card animations and the winner pop-up |
-| Start-up | `notty/main.py` | window, frame loop and event handling |
+| Cards and Deck | `notty/element_action/card.py` | Card creation, deck management, shuffling and drawing |
+| Players and AI | `notty/element_action/player.py` | Player logic and Easy/Hard AI decision-making |
+| Game Engine | `notty/element_action/game.py` | Turn management, game rules, group validation and win detection |
+| User Interface | `notty/ui/` | Pygame screens, buttons, animations and winner screen |
+| Main Application | `notty/main.py` | Game window, event handling and main loop |
 
-The engine does not depend on pygame, so it can be tested without a window.
+The game engine is independent of Pygame, allowing its core logic to be tested without launching the graphical interface.
 
-## Run it
+### 🚀 How to Run
 
-1. Install Python 3 (3.12 was used for the coursework) and the one dependency: `pip install -r requirements.txt`
-2. From the main folder of this repository, run: `python notty/main.py`
-3. Press `Esc` to quit.
+**Requirements:** Python 3 (Python 3.12 was used for the coursework).
 
-The game opens a 1920 x 1080 window.
+1. Clone or download this repository.
+2. Install the dependencies:
 
-## Check the engine
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-`simulate_games.py` plays many full games without opening a window and reports any engine errors.
+3. Start the game:
 
+   ```bash
+   python notty/main.py
+   ```
+
+4. Press `Esc` to quit.
+
+The game opens in a 1920 × 1080 window.
+
+### 🧪 Engine Testing
+
+The `simulate_games.py` script runs complete games without opening the Pygame interface. It helps check the game engine and identify errors during gameplay.
+
+Run the default simulation:
+
+```bash
+python simulate_games.py
 ```
-python simulate_games.py        # 100 games for each setting
-python simulate_games.py 500    # choose how many
+
+Run a larger simulation:
+
+```bash
+python simulate_games.py 500
 ```
 
-In my runs of 100 games for each setting (easy and hard AI, one and two opponents) there were no engine errors.
+In my testing, 100 games were simulated for each configuration (Easy and Hard AI, with one and two opponents), with no engine errors reported.
 
-## Repository contents
+### 📁 Repository Contents
 
-| Path | What it is |
+| Path | Description |
 |---|---|
-| `notty/` | The game: engine, players, interface and images |
-| `simulate_games.py` | Headless engine check |
-| `docs/engine-notes.pdf` | My notes on how the engine works and what I built |
-| `requirements.txt` | Python dependency (pygame) |
+| `notty/` | Main game package, including the engine, players, AI, interface and images |
+| `notty/element_action/` | Card, player and game-engine logic |
+| `notty/ui/` | Pygame interface and visual components |
+| `simulate_games.py` | Headless engine simulation and testing |
+| `preview_winner_popup.py` | Standalone winner-popup preview script |
+| `docs/engine-notes.pdf` | Technical notes explaining the game engine and my implementation |
+| `requirements.txt` | Python dependency (Pygame) |
+| `.gitignore` | Files and folders excluded from version control |
+| `README.md` | Project documentation |
+
+### 💡 What I Learned
+
+Through this project, I gained practical experience in:
+
+- Object-oriented programming and class design.
+- Implementing game logic and managing complex state transitions.
+- Developing AI opponents with different difficulty levels.
+- Building graphical interfaces and animations using Pygame.
+- Testing game engines independently of graphical interfaces.
+- Collaborating on a group software development project.
